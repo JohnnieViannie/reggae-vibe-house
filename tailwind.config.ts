@@ -84,7 +84,8 @@ export default {
 			},
 			fontFamily: {
 				'reggae': ['Montserrat', 'sans-serif'],
-				'heading': ['Bebas Neue', 'cursive']
+				'heading': ['Bebas Neue', 'cursive'],
+				'music': ['Boogaloo', 'cursive']
 			},
 			keyframes: {
 				'accordion-down': {

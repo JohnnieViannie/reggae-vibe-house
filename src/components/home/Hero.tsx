@@ -10,13 +10,13 @@ const Hero = () => {
       
       <div className="container mx-auto px-4 relative z-10 text-center py-20">
         <div className="max-w-4xl mx-auto">
-          <div className="mb-4 flex justify-center">
-            <span className="inline-block h-1 w-16 bg-reggae-red"></span>
-            <span className="inline-block h-1 w-16 bg-reggae-gold mx-2"></span>
-            <span className="inline-block h-1 w-16 bg-reggae-green"></span>
+          <div className="mb-6 flex justify-center">
+            <span className="inline-block h-2 w-20 bg-reggae-red"></span>
+            <span className="inline-block h-2 w-20 bg-reggae-gold mx-2"></span>
+            <span className="inline-block h-2 w-20 bg-reggae-green"></span>
           </div>
 
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading text-white mb-6 animate-pulse-slow">
+          <h1 className="hero-title">
             FEEL THE ROOTS.<br/>
             <span className="text-reggae-gold">MOVE WITH THE MISSION.</span>
           </h1>
@@ -25,18 +25,27 @@ const Hero = () => {
             Curating Uganda's Reggae Culture, One Vibe at a Time.
           </p>
           
-          <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-6">
-            <HeroButton to="/mixes" icon={<Headphones size={20} />} bgColor="bg-reggae-red">
-              Listen to Our Latest Mix
-            </HeroButton>
+          <div className="flex flex-col md:flex-row justify-center items-center space-y-6 md:space-y-0 md:space-x-6">
+            <HeroButton 
+              to="/mixes" 
+              icon={<Headphones size={24} />} 
+              bgColor="bg-reggae-red" 
+              label="Listen to Our Latest Mix"
+            />
             
-            <HeroButton to="/events" icon={<Calendar size={20} />} bgColor="bg-reggae-green">
-              See Upcoming Events
-            </HeroButton>
+            <HeroButton 
+              to="/events" 
+              icon={<Calendar size={24} />} 
+              bgColor="bg-reggae-green" 
+              label="See Upcoming Events"
+            />
             
-            <HeroButton to="/marketplace" icon={<ShoppingCart size={20} />} bgColor="bg-reggae-gold">
-              Shop Merch
-            </HeroButton>
+            <HeroButton 
+              to="/marketplace" 
+              icon={<ShoppingCart size={24} />} 
+              bgColor="bg-reggae-gold" 
+              label="Shop Merch"
+            />
           </div>
         </div>
       </div>
@@ -51,16 +60,18 @@ type HeroButtonProps = {
   to: string;
   icon: React.ReactNode;
   bgColor: string;
-  children: React.ReactNode;
+  label: string;
 };
 
-const HeroButton = ({ to, icon, bgColor, children }: HeroButtonProps) => (
+const HeroButton = ({ to, icon, bgColor, label }: HeroButtonProps) => (
   <Link 
     to={to} 
-    className={`${bgColor} text-white font-bold py-3 px-6 rounded-md hover:bg-opacity-90 transition duration-200 flex items-center justify-center`}
+    className={`${bgColor} hero-cta group`}
   >
-    <span className="mr-2">{icon}</span>
-    {children}
+    <span className="group-hover:scale-110 transition-transform duration-300">
+      {icon}
+    </span>
+    <span className="font-bold">{label}</span>
   </Link>
 );
 

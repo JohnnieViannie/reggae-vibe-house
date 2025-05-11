@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700&family=Boogaloo&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -87,4 +87,38 @@
   .bead-divider span {
     @apply px-4;
   }
+
+  .hero-cta {
+    @apply text-white font-bold py-4 px-8 rounded-md transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center justify-center gap-3 relative overflow-hidden;
+  }
+
+  .hero-cta::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-opacity-0 via-white to-opacity-0 opacity-0 transition-opacity duration-700;
+  }
+
+  .hero-cta:hover::before {
+    animation: shine 1.5s;
+  }
+
+  @keyframes shine {
+    0% {
+      opacity: 0;
+      left: -100%;
+    }
+    20% {
+      opacity: 0.1;
+      left: 100%;
+    }
+    100% {
+      opacity: 0;
+      left: 100%;
+    }
+  }
+
+  .hero-title {
+    @apply font-music text-5xl md:text-6xl lg:text-7xl text-white mb-6 animate-pulse-slow tracking-wider;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  }
 }
+
