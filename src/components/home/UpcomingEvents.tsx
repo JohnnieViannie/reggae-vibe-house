@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Calendar } from 'lucide-react';
 
 const events = [
@@ -9,7 +10,7 @@ const events = [
     date: 'June 15, 2025',
     time: '4:00 PM - 11:00 PM',
     location: 'Nyege Nyege Beach, Jinja',
-    imageUrl: '/placeholder.svg',
+    imageUrl: '/reggae-beach.jpg',
   },
   {
     id: 2,
@@ -17,7 +18,7 @@ const events = [
     date: 'July 22-23, 2025',
     time: 'All Day Event',
     location: 'National Theatre, Kampala',
-    imageUrl: '/placeholder.svg',
+    imageUrl: '/reggae-concert1.jpg',
   },
   {
     id: 3,
@@ -25,7 +26,7 @@ const events = [
     date: 'August 5, 2025',
     time: '8:00 PM - 3:00 AM',
     location: 'Club Guvnor, Kampala',
-    imageUrl: '/placeholder.svg',
+    imageUrl: '/reggae-dancers.jpg',
   },
 ];
 
@@ -43,10 +44,13 @@ const UpcomingEvents = () => {
             <p className="text-lg mb-8">
               Join us at our live events and experience the true essence of reggae culture. From intimate acoustic sessions to large-scale festivals, there's always something happening at House of Reggae.
             </p>
-            <button className="bg-reggae-green text-white font-bold py-3 px-6 rounded-md hover:bg-opacity-90 transition duration-200 inline-flex items-center">
+            <Link 
+              to="/events" 
+              className="bg-reggae-green text-white font-bold py-3 px-6 rounded-md hover:bg-opacity-90 transition duration-200 inline-flex items-center"
+            >
               <Calendar size={20} className="mr-2" />
               View Full Calendar
-            </button>
+            </Link>
           </div>
           
           {/* Right Section - Events */}
@@ -79,9 +83,12 @@ const EventCard = ({ event }: { event: any }) => {
         </div>
         
         <div className="mt-4 md:mt-0 flex items-center">
-          <button className="border-2 border-reggae-black text-reggae-black font-bold py-2 px-4 rounded-md hover:bg-reggae-black hover:text-white transition duration-200">
+          <Link 
+            to="/events" 
+            className="border-2 border-reggae-black text-reggae-black font-bold py-2 px-4 rounded-md hover:bg-reggae-black hover:text-white transition duration-200"
+          >
             Details
-          </button>
+          </Link>
         </div>
       </div>
     </div>

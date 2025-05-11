@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Music } from 'lucide-react';
 
 const mixes = [
@@ -10,7 +11,7 @@ const mixes = [
     genre: 'Ugandan Reggae',
     date: 'May 2, 2025',
     embedUrl: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1219621886&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true',
-    imageUrl: '/placeholder.svg',
+    imageUrl: '/reggae-dj.jpg',
   },
   {
     id: 2,
@@ -19,7 +20,7 @@ const mixes = [
     genre: 'Dub',
     date: 'April 15, 2025',
     embedUrl: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1334568403&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true',
-    imageUrl: '/placeholder.svg',
+    imageUrl: '/reggae-drums.jpg',
   },
   {
     id: 3,
@@ -28,7 +29,7 @@ const mixes = [
     genre: 'Roots',
     date: 'March 28, 2025',
     embedUrl: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1508795148&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true',
-    imageUrl: '/placeholder.svg',
+    imageUrl: '/reggae-artwork.jpg',
   },
   {
     id: 4,
@@ -37,7 +38,7 @@ const mixes = [
     genre: 'Lovers Rock',
     date: 'February 14, 2025',
     embedUrl: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1410256938&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true',
-    imageUrl: '/placeholder.svg',
+    imageUrl: '/reggae-beach.jpg',
   },
 ];
 
@@ -86,10 +87,13 @@ const FeaturedMixes = () => {
         
         {/* See All Mixes Button */}
         <div className="text-center mt-10">
-          <button className="bg-reggae-gold text-reggae-black font-bold py-3 px-6 rounded-md hover:bg-opacity-90 transition duration-200 inline-flex items-center">
+          <Link 
+            to="/mixes" 
+            className="bg-reggae-gold text-reggae-black font-bold py-3 px-6 rounded-md hover:bg-opacity-90 transition duration-200 inline-flex items-center"
+          >
             <Music size={20} className="mr-2" />
             See All Mixes
-          </button>
+          </Link>
         </div>
       </div>
     </section>
@@ -98,7 +102,7 @@ const FeaturedMixes = () => {
 
 const MixCard = ({ mix }: { mix: any }) => {
   return (
-    <div className="bg-gray-900 rounded-lg overflow-hidden hover:transform hover:scale-105 transition duration-300">
+    <Link to="/mixes" className="bg-gray-900 rounded-lg overflow-hidden hover:transform hover:scale-105 transition duration-300 block">
       <div className="h-48 bg-gray-800 relative">
         <img src={mix.imageUrl} alt={mix.title} className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
@@ -124,7 +128,7 @@ const MixCard = ({ mix }: { mix: any }) => {
           ></iframe>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

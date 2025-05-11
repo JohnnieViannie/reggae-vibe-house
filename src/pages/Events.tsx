@@ -1,6 +1,6 @@
 
-import React from 'react';
-import { Calendar, MapPin, Clock, ExternalLink } from 'lucide-react';
+import React, { useState } from 'react';
+import { Calendar, MapPin, Clock, ExternalLink, X } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
@@ -15,6 +15,8 @@ const events = [
     description: 'Join us for sunset vibes by the shores of the Nile. Featuring live performances and top DJs spinning the best in roots reggae and dub.',
     lineup: ['DJ Zion', 'Selecta Morris', 'Sister Blaze'],
     ticketUrl: '#',
+    fullDescription: 'Experience the magic of reggae music as the sun sets over the Nile River. This special event brings together Uganda\'s finest reggae selectors and artists for an unforgettable evening. Bring your friends and family for food, drinks, and positive vibes by the water. Early arrival recommended as space is limited.',
+    admission: 'UGX 50,000 at the gate, UGX 40,000 advance',
   },
   {
     id: 2,
@@ -26,6 +28,8 @@ const events = [
     description: 'A two-day celebration of reggae music and Rastafarian culture. Experience live bands, drum circles, food stalls, and craft markets.',
     lineup: ['Reggae Powerhouse Band', 'Lion Heart', 'DJ Ruga'],
     ticketUrl: '#',
+    fullDescription: 'The annual Roots & Culture Festival returns bigger and better than ever. This two-day extravaganza celebrates everything reggae and Rastafarian culture with international headliners and local talent. Enjoy authentic food, browse craft vendors, participate in drum circles and cultural workshops, and dance to the best reggae music Uganda has to offer.',
+    admission: 'UGX 80,000 for 2-day pass, UGX 50,000 single day',
   },
   {
     id: 3,
@@ -37,6 +41,8 @@ const events = [
     description: 'The hottest dancehall party in Kampala. Get ready to dance all night to the best dancehall riddims from Jamaica and Africa.',
     lineup: ['DJ Conscious', 'Queen Nyah', 'Jah Mike'],
     ticketUrl: '#',
+    fullDescription: 'Kampala\'s premiere dancehall event returns with even more energy than before. The ultimate dancehall experience featuring competitions, special guest performances, and the latest tracks that are shaking the global dancehall scene. Dress to impress and come ready to move!',
+    admission: 'UGX 30,000 standard entry, UGX 50,000 VIP',
   },
   {
     id: 4,
@@ -44,10 +50,12 @@ const events = [
     date: 'September 12, 2025',
     time: '6:00 PM - 10:00 PM',
     location: 'Design Hub, Kampala',
-    imageUrl: '/placeholder.svg',
+    imageUrl: '/reggae-drums.jpg',
     description: 'An intimate evening of acoustic reggae performances. Feel the raw emotion and power of reggae in its most stripped-down form.',
     lineup: ['Akello Jane', 'Tamba Soul', 'Acoustic Roots Band'],
     ticketUrl: '#',
+    fullDescription: 'Experience reggae music in its purest form at this intimate acoustic session. This event showcases the depth and beauty of reggae lyrics and melodies without the heavy production. Limited seating available to maintain the intimate atmosphere. Complimentary welcome drink included with ticket.',
+    admission: 'UGX 35,000 pre-sale only, limited capacity',
   },
   {
     id: 5,
@@ -59,69 +67,162 @@ const events = [
     description: 'A week-long exhibition exploring the rich history of reggae music in Uganda and its influence on local culture and politics.',
     lineup: ['Daily talks by reggae historians', 'Film screenings', 'Vinyl listening sessions'],
     ticketUrl: '#',
+    fullDescription: 'This comprehensive exhibition chronicles the evolution of reggae music in Uganda from the 1970s to the present day. View rare photographs, album covers, instruments, and memorabilia while learning about the political and cultural impact reggae has had in East Africa. Special daily presentations and film screenings included with admission.',
+    admission: 'UGX 15,000 adults, UGX 5,000 students with ID',
   },
 ];
 
 const Events = () => {
+  const [selectedEvent, setSelectedEvent] = useState<any>(null);
+
+  const openEventDetails = (event: any) => {
+    setSelectedEvent(event);
+  };
+
+  const closeEventDetails = () => {
+    setSelectedEvent(null);
+  };
+  
   return (
     <>
       <Navbar />
       
-      <main className="min-h-screen">
-        {/* Hero Banner */}
-        <div className="bg-reggae-black py-16 text-white">
-          <div className="container mx-auto px-4 text-center">
-            <div className="inline-block mb-4 p-3 rounded-full bg-reggae-red bg-opacity-20">
-              <Calendar size={40} className="text-white" />
+      <main className="min-h-screen bg-[url('/wood-texture.jpg')] bg-fixed bg-cover">
+        <div className="bg-reggae-black bg-opacity-95 min-h-screen">
+          {/* Hero Banner */}
+          <div className="bg-[url('/reggae-concert1.jpg')] bg-cover bg-center py-16 pt-32 relative">
+            <div className="absolute inset-0 bg-gradient-to-b from-reggae-black/70 to-reggae-black/90"></div>
+            <div className="container mx-auto px-4 text-center relative z-10">
+              <div className="inline-block mb-4 p-3 rounded-full bg-reggae-red bg-opacity-20">
+                <Calendar size={40} className="text-white" />
+              </div>
+              <h1 className="font-music text-5xl md:text-6xl mb-6 text-white">UPCOMING EVENTS</h1>
+              <p className="text-xl max-w-3xl mx-auto text-white opacity-80">
+                Experience the power of reggae music live with our upcoming shows, festivals, and cultural gatherings.
+              </p>
             </div>
-            <h1 className="font-music text-5xl md:text-6xl mb-6">UPCOMING EVENTS</h1>
-            <p className="text-xl max-w-3xl mx-auto opacity-80">
-              Experience the power of reggae music live with our upcoming shows, festivals, and cultural gatherings.
-            </p>
           </div>
+          
+          {/* Calendar View */}
+          <section className="py-16 bg-gradient-to-b from-reggae-black/90 to-transparent">
+            <div className="container mx-auto px-4">
+              <h2 className="section-title text-white text-center mb-12">Events Calendar</h2>
+              
+              <div className="space-y-10">
+                {events.map(event => (
+                  <EventCard 
+                    key={event.id} 
+                    event={event} 
+                    onDetailsClick={() => openEventDetails(event)}
+                  />
+                ))}
+              </div>
+            </div>
+          </section>
+          
+          {/* Map Section */}
+          <section className="py-16 bg-gradient-to-t from-reggae-black/90 to-transparent">
+            <div className="container mx-auto px-4">
+              <h2 className="section-title text-white text-center mb-6">Our Venues</h2>
+              <p className="text-center text-lg mb-10 text-white/80">Find our regular event locations across Uganda</p>
+              
+              <div className="max-w-4xl mx-auto border-4 border-reggae-gold rounded-xl overflow-hidden shadow-xl">
+                <img 
+                  src="/reggae-map.jpg" 
+                  alt="Map of venues" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </section>
+          
+          {/* Host Your Own Event */}
+          <section className="py-16 bg-[url('/reggae-crowd.jpg')] bg-cover bg-center text-white relative">
+            <div className="absolute inset-0 bg-reggae-black/80"></div>
+            <div className="container mx-auto px-4 text-center relative z-10">
+              <h2 className="font-heading text-3xl md:text-4xl mb-6">HOST YOUR OWN REGGAE EVENT</h2>
+              <p className="text-lg mb-8 max-w-2xl mx-auto">
+                Want to organize a reggae event? Partner with House of Reggae for DJs, equipment, promotion, and more.
+              </p>
+              <button className="bg-reggae-green text-white font-bold py-3 px-8 rounded-md hover:bg-opacity-90 transition duration-200 inline-flex items-center">
+                Contact Us About Events
+              </button>
+            </div>
+          </section>
+          
+          {/* Event Details Modal */}
+          {selectedEvent && (
+            <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4">
+              <div className="bg-white rounded-xl overflow-hidden max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                <div className="relative h-64 md:h-80">
+                  <img 
+                    src={selectedEvent.imageUrl} 
+                    alt={selectedEvent.title} 
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
+                  <button 
+                    className="absolute top-4 right-4 bg-black bg-opacity-50 p-2 rounded-full text-white hover:bg-opacity-70 transition"
+                    onClick={closeEventDetails}
+                  >
+                    <X size={24} />
+                  </button>
+                  <h2 className="absolute bottom-4 left-4 right-4 font-heading text-3xl md:text-4xl text-white">
+                    {selectedEvent.title}
+                  </h2>
+                </div>
+                <div className="p-6">
+                  <div className="flex flex-wrap gap-4 mb-6 text-gray-600">
+                    <div className="flex items-center">
+                      <Calendar size={18} className="mr-1 text-reggae-red" />
+                      <span>{selectedEvent.date}</span>
+                    </div>
+                    
+                    <div className="flex items-center">
+                      <Clock size={18} className="mr-1 text-reggae-red" />
+                      <span>{selectedEvent.time}</span>
+                    </div>
+                    
+                    <div className="flex items-center">
+                      <MapPin size={18} className="mr-1 text-reggae-red" />
+                      <span>{selectedEvent.location}</span>
+                    </div>
+                  </div>
+                  
+                  <p className="text-gray-700 mb-6 text-lg">{selectedEvent.fullDescription}</p>
+                  
+                  <div className="mb-6">
+                    <h4 className="font-bold uppercase text-reggae-red mb-2">Admission:</h4>
+                    <p className="text-gray-700">{selectedEvent.admission}</p>
+                  </div>
+                  
+                  <div className="mb-6">
+                    <h4 className="font-bold uppercase text-reggae-red mb-2">Lineup:</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedEvent.lineup.map((artist: string, index: number) => (
+                        <span 
+                          key={index} 
+                          className="bg-reggae-light text-reggae-black text-sm px-3 py-1 rounded-full"
+                        >
+                          {artist}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div className="flex justify-center mt-8">
+                    <a 
+                      href={selectedEvent.ticketUrl} 
+                      className="bg-reggae-gold text-reggae-black px-8 py-3 rounded-md font-bold flex items-center hover:bg-opacity-90 transition"
+                    >
+                      Get Tickets Now
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
-        
-        {/* Calendar View */}
-        <section className="py-16 bg-reggae-light">
-          <div className="container mx-auto px-4">
-            <h2 className="section-title text-center mb-12">Events Calendar</h2>
-            
-            <div className="space-y-10">
-              {events.map(event => (
-                <EventCard key={event.id} event={event} />
-              ))}
-            </div>
-          </div>
-        </section>
-        
-        {/* Map Section */}
-        <section className="py-16 bg-white">
-          <div className="container mx-auto px-4">
-            <h2 className="section-title text-center mb-6">Our Venues</h2>
-            <p className="text-center text-lg mb-10">Find our regular event locations across Uganda</p>
-            
-            <div className="max-w-4xl mx-auto border-4 border-reggae-gold rounded-xl overflow-hidden shadow-xl">
-              <img 
-                src="/reggae-map.jpg" 
-                alt="Map of venues" 
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-        </section>
-        
-        {/* Host Your Own Event */}
-        <section className="py-16 bg-reggae-black text-white">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="font-heading text-3xl md:text-4xl mb-6">HOST YOUR OWN REGGAE EVENT</h2>
-            <p className="text-lg mb-8 max-w-2xl mx-auto">
-              Want to organize a reggae event? Partner with House of Reggae for DJs, equipment, promotion, and more.
-            </p>
-            <button className="bg-reggae-green text-white font-bold py-3 px-8 rounded-md hover:bg-opacity-90 transition duration-200 inline-flex items-center">
-              Contact Us About Events
-            </button>
-          </div>
-        </section>
       </main>
       
       <Footer />
@@ -129,7 +230,7 @@ const Events = () => {
   );
 };
 
-const EventCard = ({ event }: { event: any }) => {
+const EventCard = ({ event, onDetailsClick }: { event: any, onDetailsClick: () => void }) => {
   return (
     <div className="flex flex-col md:flex-row bg-white overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-l-4 border-reggae-gold">
       <div className="md:w-1/3 h-64 md:h-auto">
@@ -180,7 +281,10 @@ const EventCard = ({ event }: { event: any }) => {
             Get Tickets
           </a>
           
-          <button className="border border-reggae-black text-reggae-black px-6 py-2 rounded font-bold flex items-center hover:bg-reggae-black hover:text-white transition">
+          <button 
+            className="border border-reggae-black text-reggae-black px-6 py-2 rounded font-bold flex items-center hover:bg-reggae-black hover:text-white transition"
+            onClick={onDetailsClick}
+          >
             Learn More
             <ExternalLink size={16} className="ml-1" />
           </button>

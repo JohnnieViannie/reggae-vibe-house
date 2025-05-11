@@ -11,6 +11,7 @@ import Contact from "./pages/Contact";
 import Marketplace from "./pages/Marketplace";
 import Mixes from "./pages/Mixes";
 import Events from "./pages/Events";
+import Team from "./pages/Team";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/about" element={<About />} />
+          <Route path="/team" element={<Team />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/marketplace" element={<Marketplace />} />
           <Route path="/mixes" element={<Mixes />} />

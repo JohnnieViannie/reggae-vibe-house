@@ -1,11 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,6 +35,7 @@ const Navbar = () => {
         <div className="hidden md:flex items-center space-x-8">
           <NavLink to="/">Home</NavLink>
           <NavLink to="/gallery">Gallery</NavLink>
+          <NavLink to="/team">Team</NavLink>
           <NavLink to="/about">About</NavLink>
           <NavLink to="/contact">Contact</NavLink>
           <NavLink to="/marketplace" className="bg-reggae-red px-4 py-2 rounded-md hover:bg-opacity-90 transition duration-200">
@@ -56,6 +58,7 @@ const Navbar = () => {
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
             <MobileNavLink to="/" onClick={() => setIsMenuOpen(false)}>Home</MobileNavLink>
             <MobileNavLink to="/gallery" onClick={() => setIsMenuOpen(false)}>Gallery</MobileNavLink>
+            <MobileNavLink to="/team" onClick={() => setIsMenuOpen(false)}>Team</MobileNavLink>
             <MobileNavLink to="/about" onClick={() => setIsMenuOpen(false)}>About</MobileNavLink>
             <MobileNavLink to="/contact" onClick={() => setIsMenuOpen(false)}>Contact</MobileNavLink>
             <MobileNavLink to="/marketplace" onClick={() => setIsMenuOpen(false)} className="bg-reggae-red px-4 py-2 rounded-md text-center">
