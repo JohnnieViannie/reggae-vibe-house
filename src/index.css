@@ -94,7 +94,7 @@
 
   .hero-cta::before {
     content: '';
-    @apply absolute inset-0 bg-gradient-to-r from-opacity-0 via-white to-opacity-0 opacity-0 transition-opacity duration-700;
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 transition-opacity duration-700;
   }
 
   .hero-cta:hover::before {
