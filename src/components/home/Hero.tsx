@@ -5,7 +5,7 @@ import { Headphones, Calendar, ShoppingCart } from 'lucide-react';
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-hero-pattern bg-cover bg-center">
+    <section className="relative min-h-screen flex items-center justify-center bg-[url('/hero-bg.jpg')] bg-cover bg-center">
       <div className="absolute inset-0 bg-gradient-to-b from-reggae-black/70 to-reggae-black/90"></div>
       
       <div className="container mx-auto px-4 relative z-10 text-center py-20">
