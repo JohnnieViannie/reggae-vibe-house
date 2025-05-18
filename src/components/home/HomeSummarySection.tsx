@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Calendar, Headphones, ShoppingCart } from 'lucide-react';
 import {
@@ -83,6 +83,39 @@ const products = [
 ];
 
 const HomeSummarySection = () => {
+  // Create refs for the carousels to control them programmatically
+  const [eventsApi, setEventsApi] = React.useState<any>(null);
+  const [mixesApi, setMixesApi] = React.useState<any>(null);
+  const [productsApi, setProductsApi] = React.useState<any>(null);
+
+  // Auto-scroll the carousels every 3 seconds
+  useEffect(() => {
+    if (eventsApi) {
+      const eventsInterval = setInterval(() => {
+        eventsApi.scrollNext();
+      }, 3000);
+      return () => clearInterval(eventsInterval);
+    }
+  }, [eventsApi]);
+
+  useEffect(() => {
+    if (mixesApi) {
+      const mixesInterval = setInterval(() => {
+        mixesApi.scrollNext();
+      }, 3500);
+      return () => clearInterval(mixesInterval);
+    }
+  }, [mixesApi]);
+
+  useEffect(() => {
+    if (productsApi) {
+      const productsInterval = setInterval(() => {
+        productsApi.scrollNext();
+      }, 4000);
+      return () => clearInterval(productsInterval);
+    }
+  }, [productsApi]);
+
   return (
     <section className="py-16 bg-white relative overflow-hidden">
       <div className="container mx-auto px-4">
@@ -96,7 +129,7 @@ const HomeSummarySection = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Events Preview with Carousel */}
           <div className="bg-reggae-light rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
-            <Carousel className="w-full" autoPlay={true} opts={{
+            <Carousel className="w-full" setApi={setEventsApi} opts={{
               loop: true,
               duration: 20,
             }}>
@@ -131,7 +164,7 @@ const HomeSummarySection = () => {
           
           {/* Mixes Preview with Carousel */}
           <div className="bg-reggae-black rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
-            <Carousel className="w-full" autoPlay={true} opts={{
+            <Carousel className="w-full" setApi={setMixesApi} opts={{
               loop: true,
               duration: 20,
             }}>
@@ -166,7 +199,7 @@ const HomeSummarySection = () => {
           
           {/* Merchandise Preview with Carousel */}
           <div className="bg-reggae-light rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
-            <Carousel className="w-full" autoPlay={true} opts={{
+            <Carousel className="w-full" setApi={setProductsApi} opts={{
               loop: true,
               duration: 20,
             }}>
