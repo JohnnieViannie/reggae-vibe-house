@@ -50,25 +50,67 @@ const Hero = () => {
         </div>
       </div>
       
-      {/* Online Radio Card */}
+      {/* Online Radio Card - Enhanced Design */}
       <div className="w-full max-w-3xl mx-auto mt-8 mb-16 px-4 relative z-10">
-        <div className="bg-reggae-black/80 rounded-lg overflow-hidden shadow-xl border-2 border-reggae-gold">
-          <div className="p-4 bg-gradient-to-r from-reggae-black to-reggae-black/70 text-white flex items-center justify-between">
-            <h3 className="text-xl font-heading flex items-center gap-2">
-              <Radio className="text-reggae-gold" size={24} />
-              <span>Live Reggae Radio</span>
-            </h3>
-            <span className="px-3 py-1 bg-reggae-red rounded-full text-sm font-bold animate-pulse">LIVE</span>
+        <div className="bg-gradient-to-r from-reggae-black/90 to-reggae-black/80 backdrop-blur-lg rounded-xl overflow-hidden shadow-2xl border border-reggae-gold/50 transform hover:scale-[1.02] transition-all duration-500">
+          {/* Top Gradient Bar */}
+          <div className="h-2 w-full bg-gradient-to-r from-reggae-red via-reggae-gold to-reggae-green"></div>
+          
+          {/* Header */}
+          <div className="p-5 bg-gradient-to-b from-reggae-black to-transparent flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="relative">
+                <Radio className="text-reggae-gold" size={28} />
+                <span className="absolute top-0 left-0 w-full h-full animate-ping rounded-full bg-reggae-gold/30"></span>
+              </div>
+              <div>
+                <h3 className="text-2xl font-heading text-white tracking-wider">LIVE REGGAE RADIO</h3>
+                <p className="text-reggae-gold/80 text-sm">Broadcasting 24/7 Positive Vibrations</p>
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-3">
+              <span className="px-3 py-1 bg-reggae-red rounded-full text-xs font-bold text-white animate-pulse flex items-center">
+                <span className="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></span>
+                LIVE NOW
+              </span>
+            </div>
           </div>
-          <div className="h-[300px] bg-reggae-black/30">
-            {/* Replace the src with your actual radio embed URL */}
-            <iframe 
-              src="https://zeno.fm/player/reggae-vibes-radio" 
-              title="Reggae Online Radio"
-              className="w-full h-full border-0"
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-              loading="lazy"
-            ></iframe>
+          
+          {/* Radio Player */}
+          <div className="relative">
+            {/* Visual Equalizer Decoration */}
+            <div className="absolute left-0 right-0 top-0 h-8 bg-gradient-to-b from-reggae-black/60 to-transparent z-10 flex justify-center items-center gap-1 px-4">
+              {[...Array(18)].map((_, i) => (
+                <div 
+                  key={i} 
+                  className="w-1 bg-reggae-gold/70 rounded-full" 
+                  style={{ 
+                    height: `${Math.max(4, Math.floor(Math.random() * 20))}px`,
+                    animationDuration: `${0.5 + Math.random() * 1}s`,
+                  }}
+                ></div>
+              ))}
+            </div>
+            
+            {/* Radio Player */}
+            <div className="h-[320px] bg-reggae-black/30">
+              <iframe 
+                src="https://zeno.fm/player/reggae-vibes-radio" 
+                title="Reggae Online Radio"
+                className="w-full h-full border-0"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+              ></iframe>
+            </div>
+            
+            {/* Bottom Decoration */}
+            <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-reggae-black/80 to-transparent"></div>
+          </div>
+          
+          {/* Footer */}
+          <div className="p-4 bg-reggae-black/90 text-reggae-gold/80 text-sm font-medium text-center italic">
+            "One good thing about music, when it hits you, you feel no pain." - Bob Marley
           </div>
         </div>
       </div>
