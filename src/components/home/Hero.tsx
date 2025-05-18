@@ -1,11 +1,11 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Headphones, Calendar, ShoppingCart } from 'lucide-react';
+import { Headphones, Calendar, ShoppingCart, Radio } from 'lucide-react';
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-[url('/hero-bg.jpg')] bg-cover bg-center">
+    <section className="relative min-h-screen flex flex-col items-center justify-center bg-[url('/hero-bg.jpg')] bg-cover bg-center">
       <div className="absolute inset-0 bg-gradient-to-b from-reggae-black/70 to-reggae-black/90"></div>
       
       <div className="container mx-auto px-4 relative z-10 text-center py-20">
@@ -46,6 +46,29 @@ const Hero = () => {
               bgColor="bg-reggae-gold" 
               label="Shop Merch"
             />
+          </div>
+        </div>
+      </div>
+      
+      {/* Online Radio Card */}
+      <div className="w-full max-w-3xl mx-auto mt-8 mb-16 px-4 relative z-10">
+        <div className="bg-reggae-black/80 rounded-lg overflow-hidden shadow-xl border-2 border-reggae-gold">
+          <div className="p-4 bg-gradient-to-r from-reggae-black to-reggae-black/70 text-white flex items-center justify-between">
+            <h3 className="text-xl font-heading flex items-center gap-2">
+              <Radio className="text-reggae-gold" size={24} />
+              <span>Live Reggae Radio</span>
+            </h3>
+            <span className="px-3 py-1 bg-reggae-red rounded-full text-sm font-bold animate-pulse">LIVE</span>
+          </div>
+          <div className="h-[300px] bg-reggae-black/30">
+            {/* Replace the src with your actual radio embed URL */}
+            <iframe 
+              src="https://zeno.fm/player/reggae-vibes-radio" 
+              title="Reggae Online Radio"
+              className="w-full h-full border-0"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+            ></iframe>
           </div>
         </div>
       </div>
