@@ -92,45 +92,45 @@ const Hero = () => {
       
       {/* Action Buttons */}
       <div className="bg-reggae-green py-2">
-        <div className="container mx-auto flex flex-wrap justify-center gap-2 md:gap-6 px-4">
+        <div className="container mx-auto flex flex-wrap justify-center gap-1 px-2">
           <Link 
             to="/mixes" 
-            className="bg-reggae-red text-white font-bold py-2 px-4 md:px-6 rounded-full flex items-center gap-2 hover:bg-opacity-90 transition"
+            className="bg-reggae-red text-white font-bold text-xs sm:text-sm py-2 px-2 md:px-4 rounded-full flex items-center gap-1 hover:bg-opacity-90 transition"
           >
-            <Headphones size={18} />
-            LISTEN TO OUR LATEST MIX
+            <Headphones size={16} />
+            <span className="whitespace-nowrap">LATEST MIX</span>
           </Link>
           
           <Link 
             to="/events" 
-            className="bg-reggae-green border-2 border-reggae-gold text-reggae-gold font-bold py-2 px-4 md:px-6 rounded-full flex items-center gap-2 hover:bg-reggae-gold hover:text-reggae-green transition"
+            className="bg-reggae-green border-2 border-reggae-gold text-reggae-gold font-bold text-xs sm:text-sm py-2 px-2 md:px-4 rounded-full flex items-center gap-1 hover:bg-reggae-gold hover:text-reggae-green transition"
           >
-            <Calendar size={18} />
-            SEE UPCOMING EVENTS
+            <Calendar size={16} />
+            <span className="whitespace-nowrap">EVENTS</span>
           </Link>
           
           <Link 
             to="/marketplace" 
-            className="bg-reggae-gold text-reggae-black font-bold py-2 px-4 md:px-6 rounded-full flex items-center gap-2 hover:bg-opacity-90 transition"
+            className="bg-reggae-gold text-reggae-black font-bold text-xs sm:text-sm py-2 px-2 md:px-4 rounded-full flex items-center gap-1 hover:bg-opacity-90 transition"
           >
-            <ShoppingCart size={18} />
-            SHOP MERCH
+            <ShoppingCart size={16} />
+            <span className="whitespace-nowrap">SHOP</span>
           </Link>
         </div>
       </div>
       
       {/* Featured Mixes Section */}
-      <div className="bg-reggae-green py-3">
-        <div className="container mx-auto px-4">
-          <div className="bg-reggae-black rounded-lg p-4">
-            <h2 className="text-reggae-gold text-2xl md:text-3xl font-bold mb-3 text-center">FEATURED MIXES</h2>
+      <div className="bg-reggae-green py-2">
+        <div className="container mx-auto px-2 sm:px-4">
+          <div className="bg-reggae-black rounded-lg p-3">
+            <h2 className="text-reggae-gold text-xl md:text-2xl font-bold mb-2 text-center">FEATURED MIXES</h2>
             
             {/* Category Tabs */}
-            <div className="flex justify-center mb-4 overflow-x-auto bg-reggae-black/50 rounded-full p-1">
+            <div className="flex justify-center mb-3 overflow-x-auto bg-reggae-black/50 rounded-full p-1 no-scrollbar">
               {['UGANDAN REGGAE', 'ROOTS', 'DUB', 'LOVERS ROCK'].map((category, idx) => (
                 <span 
                   key={idx} 
-                  className={`px-3 py-1 text-sm font-bold rounded-full whitespace-nowrap mx-1 ${
+                  className={`px-2 py-1 text-xs font-bold rounded-full whitespace-nowrap mx-1 ${
                     idx === 1 ? 'bg-reggae-gold text-reggae-black' : 'text-reggae-gold hover:bg-reggae-black/30'
                   }`}
                 >
@@ -139,44 +139,62 @@ const Hero = () => {
               ))}
             </div>
             
-            {/* Mixes Carousel */}
-            <Carousel className="w-full" setApi={setMixesApi} opts={{ loop: true, duration: 20 }}>
-              <CarouselContent>
-                <div className="flex">
-                  {featuredMixes.map((mix) => (
-                    <CarouselItem key={mix.id} className="basis-1/3 pl-0 sm:pl-4">
-                      <div className="bg-reggae-green/20 rounded-lg overflow-hidden">
-                        <div className="h-40 relative">
-                          <img src={mix.imageUrl} alt={mix.title} className="w-full h-full object-cover" />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
-                          <div className="absolute bottom-0 left-0 w-full p-2 text-center">
-                            <h3 className="text-xl font-bold text-reggae-gold">{mix.title}</h3>
-                            <p className="text-white text-sm">by {mix.dj} | {mix.genre} | {mix.year}</p>
+            {/* Mixes Grid (for mobile) */}
+            <div className="grid grid-cols-3 gap-2 sm:hidden">
+              {featuredMixes.map((mix) => (
+                <div key={mix.id} className="bg-reggae-green/20 rounded-lg overflow-hidden">
+                  <div className="h-24 relative">
+                    <img src={mix.imageUrl} alt={mix.title} className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
+                    <div className="absolute bottom-0 left-0 w-full p-1 text-center">
+                      <h3 className="text-sm font-bold text-reggae-gold truncate">{mix.title}</h3>
+                      <p className="text-white text-xs truncate">{mix.dj}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            {/* Mixes Carousel (for desktop) */}
+            <div className="hidden sm:block">
+              <Carousel className="w-full" setApi={setMixesApi} opts={{ loop: true, duration: 20 }}>
+                <CarouselContent>
+                  <div className="flex">
+                    {featuredMixes.map((mix) => (
+                      <CarouselItem key={mix.id} className="basis-1/3 pl-0 sm:pl-4">
+                        <div className="bg-reggae-green/20 rounded-lg overflow-hidden">
+                          <div className="h-40 relative">
+                            <img src={mix.imageUrl} alt={mix.title} className="w-full h-full object-cover" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
+                            <div className="absolute bottom-0 left-0 w-full p-2 text-center">
+                              <h3 className="text-xl font-bold text-reggae-gold">{mix.title}</h3>
+                              <p className="text-white text-sm">by {mix.dj} | {mix.genre} | {mix.year}</p>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </div>
-              </CarouselContent>
-            </Carousel>
+                      </CarouselItem>
+                    ))}
+                  </div>
+                </CarouselContent>
+              </Carousel>
+            </div>
           </div>
         </div>
       </div>
       
       {/* Upcoming Events Section */}
-      <div className="bg-reggae-gold py-3">
-        <div className="container mx-auto px-4">
-          <h2 className="text-reggae-black text-2xl md:text-3xl font-bold mb-3 text-center">UPCOMING EVENTS & SHOWS</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="bg-reggae-gold py-2">
+        <div className="container mx-auto px-2 sm:px-4">
+          <h2 className="text-reggae-black text-xl md:text-2xl font-bold mb-2 text-center">UPCOMING EVENTS & SHOWS</h2>
+          <div className="grid grid-cols-2 gap-2">
             {upcomingEvents.map((event) => (
               <Link to="/events" key={event.id} className="block">
-                <div className="relative rounded-lg overflow-hidden h-48">
+                <div className="relative rounded-lg overflow-hidden h-24 sm:h-32 md:h-48">
                   <img src={event.imageUrl} alt={event.title} className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 w-full p-4 text-center">
-                    <h3 className="text-xl font-bold text-reggae-gold">{event.title}</h3>
-                    <p className="text-white">{event.date}</p>
+                  <div className="absolute bottom-0 left-0 w-full p-2 text-center">
+                    <h3 className="text-sm sm:text-lg font-bold text-reggae-gold truncate">{event.title}</h3>
+                    <p className="text-white text-xs sm:text-sm">{event.date}</p>
                   </div>
                 </div>
               </Link>
@@ -186,24 +204,24 @@ const Hero = () => {
       </div>
       
       {/* Featured Artist Section */}
-      <div className="bg-reggae-green py-3">
-        <div className="container mx-auto px-4">
-          <h2 className="text-reggae-gold text-2xl md:text-3xl font-bold mb-3 text-center">FEATURED DJ OF THE WEEK</h2>
-          <div className="bg-reggae-black/70 rounded-lg p-4 flex flex-col md:flex-row items-center gap-4">
-            <div className="md:w-1/3">
-              <div className="w-48 h-48 mx-auto overflow-hidden rounded-full border-4 border-reggae-gold">
+      <div className="bg-reggae-green py-2">
+        <div className="container mx-auto px-2 sm:px-4">
+          <h2 className="text-reggae-gold text-xl md:text-2xl font-bold mb-2 text-center">FEATURED DJ OF THE WEEK</h2>
+          <div className="bg-reggae-black/70 rounded-lg p-2 sm:p-4 flex flex-row items-center gap-2">
+            <div className="w-1/3">
+              <div className="w-20 h-20 md:w-32 md:h-32 lg:w-48 lg:h-48 mx-auto overflow-hidden rounded-full border-2 border-reggae-gold">
                 <img src={featuredArtist.image} alt={featuredArtist.name} className="w-full h-full object-cover" />
               </div>
             </div>
-            <div className="md:w-2/3 text-center md:text-left">
-              <h3 className="text-3xl font-bold text-reggae-gold mb-2">{featuredArtist.name}</h3>
-              <div className="text-white mb-3">
-                <div className="font-bold">BIO</div>
-                <p>{featuredArtist.bio}</p>
+            <div className="w-2/3 text-left">
+              <h3 className="text-lg sm:text-xl md:text-3xl font-bold text-reggae-gold">{featuredArtist.name}</h3>
+              <div className="text-white mb-1">
+                <div className="font-bold text-xs sm:text-sm">BIO</div>
+                <p className="text-xs sm:text-sm">{featuredArtist.bio}</p>
               </div>
               <div className="text-white">
-                <div className="font-bold">MIX OR VIDEO</div>
-                <p className="text-sm text-reggae-gold/80">Coming soon...</p>
+                <div className="font-bold text-xs sm:text-sm">MIX OR VIDEO</div>
+                <p className="text-xs text-reggae-gold/80">Coming soon...</p>
               </div>
             </div>
           </div>
@@ -211,35 +229,35 @@ const Hero = () => {
       </div>
       
       {/* Online Radio */}
-      <div className="bg-reggae-black py-3">
-        <div className="container mx-auto px-4">
+      <div className="bg-reggae-black py-2">
+        <div className="container mx-auto px-2 sm:px-4">
           <div className="bg-gradient-to-r from-reggae-black/90 to-reggae-black/80 backdrop-blur-lg rounded-xl overflow-hidden shadow-2xl border border-reggae-gold/50">
             {/* Top Gradient Bar */}
-            <div className="h-2 w-full bg-gradient-to-r from-reggae-red via-reggae-gold to-reggae-green"></div>
+            <div className="h-1 sm:h-2 w-full bg-gradient-to-r from-reggae-red via-reggae-gold to-reggae-green"></div>
             
             {/* Header */}
-            <div className="p-4 bg-gradient-to-b from-reggae-black to-transparent flex items-center justify-between">
-              <div className="flex items-center gap-3">
+            <div className="p-2 sm:p-3 md:p-4 bg-gradient-to-b from-reggae-black to-transparent flex items-center justify-between">
+              <div className="flex items-center gap-2">
                 <div className="relative">
-                  <Radio className="text-reggae-gold" size={24} />
+                  <Radio className="text-reggae-gold" size={18} />
                   <span className="absolute top-0 left-0 w-full h-full animate-ping rounded-full bg-reggae-gold/30"></span>
                 </div>
                 <div>
-                  <h3 className="text-xl font-heading text-white tracking-wider">LIVE REGGAE RADIO</h3>
-                  <p className="text-reggae-gold/80 text-xs">Broadcasting 24/7 Positive Vibrations</p>
+                  <h3 className="text-sm sm:text-lg md:text-xl font-heading text-white tracking-wider">LIVE REGGAE RADIO</h3>
+                  <p className="text-reggae-gold/80 text-xs">Broadcasting 24/7</p>
                 </div>
               </div>
               
-              <div className="flex items-center gap-3">
-                <span className="px-2 py-1 bg-reggae-red rounded-full text-xs font-bold text-white animate-pulse flex items-center">
-                  <span className="w-1.5 h-1.5 bg-white rounded-full mr-1 animate-pulse"></span>
+              <div className="flex items-center">
+                <span className="px-1 sm:px-2 py-0.5 sm:py-1 bg-reggae-red rounded-full text-xs font-bold text-white animate-pulse flex items-center">
+                  <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-white rounded-full mr-1 animate-pulse"></span>
                   LIVE
                 </span>
               </div>
             </div>
             
             {/* Radio Player */}
-            <div className="h-[180px] bg-reggae-black/30">
+            <div className="h-[120px] sm:h-[150px] md:h-[180px] bg-reggae-black/30">
               <iframe 
                 src="https://zeno.fm/player/reggae-vibes-radio" 
                 title="Reggae Online Radio"
