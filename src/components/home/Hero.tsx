@@ -9,6 +9,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // Sample data for mixes
 const featuredMixes = [
@@ -61,8 +62,15 @@ const featuredArtist = {
   image: '/reggae-team1.jpg',
 };
 
+// Mix categories
+const categories = ['UGANDAN REGGAE', 'ROOTS', 'DUB', 'LOVERS ROCK'];
+
 const Hero = () => {
   const [mixesApi, setMixesApi] = React.useState<any>(null);
+  const [activeCategory, setActiveCategory] = React.useState('ROOTS');
+  
+  // Filter mixes based on active category
+  const filteredMixes = featuredMixes.filter(mix => mix.genre === activeCategory || activeCategory === 'ALL');
 
   // Auto-scroll the carousel every 3 seconds
   React.useEffect(() => {
@@ -75,7 +83,7 @@ const Hero = () => {
   }, [mixesApi]);
 
   return (
-    <section className="bg-reggae-green min-h-screen flex flex-col">
+    <section className="bg-reggae-green min-h-screen flex flex-col pt-16"> {/* Added pt-16 to push content down */}
       {/* Hero Banner */}
       <div className="relative h-[30vh] bg-[url('/hero-bg.jpg')] bg-cover bg-center flex items-center justify-center">
         <div className="absolute inset-0 bg-gradient-to-b from-reggae-black/50 to-reggae-black/80"></div>
@@ -126,58 +134,60 @@ const Hero = () => {
             <h2 className="text-reggae-gold text-xl md:text-2xl font-bold mb-2 text-center">FEATURED MIXES</h2>
             
             {/* Category Tabs */}
-            <div className="flex justify-center mb-3 overflow-x-auto bg-reggae-black/50 rounded-full p-1 no-scrollbar">
-              {['UGANDAN REGGAE', 'ROOTS', 'DUB', 'LOVERS ROCK'].map((category, idx) => (
-                <span 
-                  key={idx} 
-                  className={`px-2 py-1 text-xs font-bold rounded-full whitespace-nowrap mx-1 ${
-                    idx === 1 ? 'bg-reggae-gold text-reggae-black' : 'text-reggae-gold hover:bg-reggae-black/30'
-                  }`}
-                >
-                  {category}
-                </span>
-              ))}
-            </div>
-            
-            {/* Mixes Grid (for mobile) */}
-            <div className="grid grid-cols-3 gap-2 sm:hidden">
-              {featuredMixes.map((mix) => (
-                <div key={mix.id} className="bg-reggae-green/20 rounded-lg overflow-hidden">
-                  <div className="h-24 relative">
-                    <img src={mix.imageUrl} alt={mix.title} className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
-                    <div className="absolute bottom-0 left-0 w-full p-1 text-center">
-                      <h3 className="text-sm font-bold text-reggae-gold truncate">{mix.title}</h3>
-                      <p className="text-white text-xs truncate">{mix.dj}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            
-            {/* Mixes Carousel (for desktop) */}
-            <div className="hidden sm:block">
-              <Carousel className="w-full" setApi={setMixesApi} opts={{ loop: true, duration: 20 }}>
-                <CarouselContent>
-                  <div className="flex">
-                    {featuredMixes.map((mix) => (
-                      <CarouselItem key={mix.id} className="basis-1/3 pl-0 sm:pl-4">
-                        <div className="bg-reggae-green/20 rounded-lg overflow-hidden">
-                          <div className="h-40 relative">
-                            <img src={mix.imageUrl} alt={mix.title} className="w-full h-full object-cover" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
-                            <div className="absolute bottom-0 left-0 w-full p-2 text-center">
-                              <h3 className="text-xl font-bold text-reggae-gold">{mix.title}</h3>
-                              <p className="text-white text-sm">by {mix.dj} | {mix.genre} | {mix.year}</p>
-                            </div>
+            <Tabs defaultValue="ROOTS" className="w-full" onValueChange={setActiveCategory}>
+              <TabsList className="flex justify-center mb-3 overflow-x-auto bg-reggae-black/50 rounded-full p-1 no-scrollbar">
+                {categories.map((category, idx) => (
+                  <TabsTrigger key={idx} value={category} className="px-2 py-1 text-xs font-bold rounded-full whitespace-nowrap mx-1 data-[state=active]:bg-reggae-gold data-[state=active]:text-reggae-black data-[state=inactive]:text-reggae-gold">
+                    {category}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+              
+              {/* Content for each tab */}
+              {categories.map((category) => (
+                <TabsContent key={category} value={category} className="mt-0">
+                  {/* Grid layout for small devices */}
+                  <div className="grid grid-cols-3 gap-2 sm:hidden">
+                    {featuredMixes.filter(mix => mix.genre === category || category === 'ALL').map((mix) => (
+                      <div key={mix.id} className="bg-reggae-green/20 rounded-lg overflow-hidden">
+                        <div className="h-24 relative">
+                          <img src={mix.imageUrl} alt={mix.title} className="w-full h-full object-cover" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
+                          <div className="absolute bottom-0 left-0 w-full p-1 text-center">
+                            <h3 className="text-sm font-bold text-reggae-gold truncate">{mix.title}</h3>
+                            <p className="text-white text-xs truncate">{mix.dj}</p>
                           </div>
                         </div>
-                      </CarouselItem>
+                      </div>
                     ))}
                   </div>
-                </CarouselContent>
-              </Carousel>
-            </div>
+                  
+                  {/* Carousel for larger screens */}
+                  <div className="hidden sm:block">
+                    <Carousel className="w-full" setApi={setMixesApi} opts={{ loop: true, duration: 20 }}>
+                      <CarouselContent>
+                        <div className="flex">
+                          {featuredMixes.filter(mix => mix.genre === category || category === 'ALL').map((mix) => (
+                            <CarouselItem key={mix.id} className="basis-1/3 pl-0 sm:pl-4">
+                              <div className="bg-reggae-green/20 rounded-lg overflow-hidden">
+                                <div className="h-40 relative">
+                                  <img src={mix.imageUrl} alt={mix.title} className="w-full h-full object-cover" />
+                                  <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
+                                  <div className="absolute bottom-0 left-0 w-full p-2 text-center">
+                                    <h3 className="text-xl font-bold text-reggae-gold">{mix.title}</h3>
+                                    <p className="text-white text-sm">by {mix.dj} | {mix.genre} | {mix.year}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </CarouselItem>
+                          ))}
+                        </div>
+                      </CarouselContent>
+                    </Carousel>
+                  </div>
+                </TabsContent>
+              ))}
+            </Tabs>
           </div>
         </div>
       </div>
