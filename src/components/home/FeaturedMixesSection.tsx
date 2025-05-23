@@ -63,16 +63,18 @@ const featuredMixes = [
   },
 ];
 
-// Mix categories
-const categories = ['UGANDAN REGGAE', 'ROOTS', 'DUB', 'LOVERS ROCK', 'DANCEHALL'];
+// Mix categories with ALL option added at the beginning
+const categories = ['ALL', 'UGANDAN REGGAE', 'ROOTS', 'DUB', 'LOVERS ROCK', 'DANCEHALL'];
 
 const FeaturedMixesSection = () => {
   const [mixesApi, setMixesApi] = React.useState<any>(null);
-  const [activeCategory, setActiveCategory] = React.useState('ROOTS');
+  const [activeCategory, setActiveCategory] = React.useState('ALL');
   const [viewType, setViewType] = React.useState<'grid' | 'list'>('grid');
   
-  // Filter mixes based on active category
-  const filteredMixes = featuredMixes.filter(mix => mix.genre === activeCategory);
+  // Filter mixes based on active category - show all mixes if ALL is selected
+  const filteredMixes = activeCategory === 'ALL' 
+    ? featuredMixes 
+    : featuredMixes.filter(mix => mix.genre === activeCategory);
 
   // Auto-scroll the carousel every 3 seconds
   React.useEffect(() => {
@@ -109,7 +111,7 @@ const FeaturedMixesSection = () => {
           </div>
           
           {/* Category Tabs */}
-          <Tabs defaultValue="ROOTS" className="w-full" onValueChange={setActiveCategory}>
+          <Tabs defaultValue="ALL" className="w-full" onValueChange={setActiveCategory}>
             <TabsList className="flex justify-start mb-4 overflow-x-auto bg-reggae-black/50 rounded-full p-1 no-scrollbar w-full">
               {categories.map((category, idx) => (
                 <TabsTrigger 
@@ -129,7 +131,10 @@ const FeaturedMixesSection = () => {
                   <>
                     {/* Mobile Grid (2 columns) */}
                     <div className="grid grid-cols-2 gap-3 md:hidden">
-                      {featuredMixes.filter(mix => mix.genre === category).map((mix) => (
+                      {(category === 'ALL' 
+                        ? featuredMixes 
+                        : featuredMixes.filter(mix => mix.genre === category)
+                      ).map((mix) => (
                         <div key={mix.id} className="bg-reggae-green/20 rounded-lg overflow-hidden">
                           <div className="h-40 relative">
                             <img src={mix.imageUrl} alt={mix.title} className="w-full h-full object-cover" />
@@ -148,7 +153,10 @@ const FeaturedMixesSection = () => {
                     
                     {/* Tablet and Desktop View - Full Row Display */}
                     <div className="hidden md:flex flex-wrap md:flex-nowrap gap-4 overflow-x-auto pb-4">
-                      {featuredMixes.filter(mix => mix.genre === category).map((mix) => (
+                      {(category === 'ALL' 
+                        ? featuredMixes 
+                        : featuredMixes.filter(mix => mix.genre === category)
+                      ).map((mix) => (
                         <div key={mix.id} className="bg-reggae-green/20 rounded-lg overflow-hidden flex-shrink-0" style={{ width: "250px" }}>
                           <div className="h-56 relative">
                             <img src={mix.imageUrl} alt={mix.title} className="w-full h-full object-cover" />
@@ -169,7 +177,10 @@ const FeaturedMixesSection = () => {
                 ) : (
                   /* List view for both mobile and desktop */
                   <div className="space-y-3">
-                    {featuredMixes.filter(mix => mix.genre === category).map((mix) => (
+                    {(category === 'ALL' 
+                      ? featuredMixes 
+                      : featuredMixes.filter(mix => mix.genre === category)
+                    ).map((mix) => (
                       <Card key={mix.id} className="bg-reggae-green/20 border-none hover:bg-reggae-green/30 transition-colors">
                         <CardContent className="p-3">
                           <div className="flex items-center gap-3">
